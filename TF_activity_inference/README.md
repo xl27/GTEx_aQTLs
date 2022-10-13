@@ -1,9 +1,9 @@
 # Guide: Inferring individual-specific transcription factor activity
 
 ## Example Datasets:
-We use GTEx skeletal muscle RNA-seq data and NR4A1 perturbation data  as examples:
-GTEx v8 data: [link](https://gtexportal.org/home/datasets)
-ENCODE CRIPSRi data: [link](https://www.encodeproject.org/experiments/ENCSR357LVC/)
+We use GTEx skeletal muscle RNA-seq data and NR4A1 perturbation data  as examples:   
+GTEx v8 data: [open access datasets](https://gtexportal.org/home/datasets)   
+ENCODE data: [CRIPSRi experiments](https://www.encodeproject.org/experiments/ENCSR357LVC/)    
 
 ## Steps:
 
