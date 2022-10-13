@@ -10,7 +10,8 @@ ENCODE data: [CRIPSRi experiments](https://www.encodeproject.org/experiments/ENC
 1) Preparation of RNA-Seq data from the GTEx project: `Process_GTEx_Count_Matrix.R`	
 2) Selection of gene pairs: `Select_Gene_Pairs.Rmd`
 3) Generating TF perturbation response signature using ENCODE CRISPRi data: `Perturbation_Signature.Rmd`	
-4) Inferring TF activity based on gene-pair model: `Pair_Level_Inference_Model.py`	
+4) Inferring TF activity based on gene-pair model:  
+`Pair_Level_Inference_Model.py NR4A1 Muscle_Skeletal`	
 
 
 ## Dependencies:
