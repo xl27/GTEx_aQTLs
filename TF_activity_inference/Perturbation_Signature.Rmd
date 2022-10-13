@@ -8,9 +8,9 @@ output: html_document
 ## Get CRISPRi RNA-seq metadata from ENCODE
 ```{r}
 #setwd({data_dir})
-exp_info <- data.table::fread("ENCODE_Signature/experiment_report_2021_10_11.tsv")
+exp_info <- data.table::fread("example_data/ENCODE_experiment_report_2021_10_11.tsv") ## Downloaded from ENCODE
 
-bam_meta <- data.table::fread("ENCODE_Signature/metadata.tsv")
+bam_meta <- data.table::fread("example_data/ENCODE_metadata.tsv")
 bam_meta <- bam_meta[bam_meta$`Output type` == "alignments" & bam_meta$`File assembly` == "GRCh38" & bam_meta$`Genome annotation` == "V29",]
 bam_meta <- bam_meta[,c("File accession", "Experiment accession", "Biological replicate(s)", "File download URL")]
 write.table(bam_meta, "ENCODE_Signature/alignments_files.txt", row.names = F, col.names = T, quote = F)
@@ -123,7 +123,7 @@ names(resLFC_ls) <- TFs
 
 shrink_LFC_df <- sapply(resLFC_ls, "[[", 2)
 rownames(shrink_LFC_df) <- rownames(res_ls[[1]])
-write.csv(shrink_LFC_df, "ENCODE_Signature/shrinkLFC_CRISPRi.csv", row.names = T, quote = F)
+write.csv(shrink_LFC_df, "example_data/ENCODE_CRISPRi_shrinkLFC.csv", row.names = T, quote = F)
 ```
 
 

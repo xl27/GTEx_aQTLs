@@ -47,7 +47,7 @@ abline(v = log10(2e5), col = "grey")
 text(x = log10(2e5), y=0, pos = 4, labels = "200k", col='grey')
 
 pairs_filtered <- pairs_filtered[g_dist <= 2e5 & g_dist >= 1e4,]
-write.csv(pairs_filtered, "Pairs/pairs_10k-200k_overlap.csv")
+write.csv(pairs_filtered, "example_data/gene_pairs_neighboring.csv")
 ```
 
 
@@ -92,8 +92,8 @@ pairs_10th_ls <- lapply(seqlevels(gene.info)[1:22], get_10th_pairs)
 pairs_10th_DF <- Reduce(rbind, pairs_10th_ls)
 
 
-write.csv(pairs_5th_DF, "Pairs/pairs_5th.csv")
-write.csv(pairs_10th_DF, "Pairs/pairs_10th.csv")
+write.csv(pairs_5th_DF, "example_data/gene_pairs_5th.csv")
+write.csv(pairs_10th_DF, "example_data/gene_pairs_10th.csv")
 ```
 
 
@@ -122,7 +122,7 @@ fil <- seqnames(g1) != seqnames(g2)
 g1 <- g1[fil]
 g2 <- g2[fil]
 random_df2 <- data.frame(g1 = g1$gene_id, g2 = g2$gene_id)
-write.csv(random_df2, "Pairs/pairs_random2")
+write.csv(random_df2, "example_data/gene_pairs_random2.csv")
 ```
 
 

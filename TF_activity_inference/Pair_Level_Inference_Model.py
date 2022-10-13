@@ -11,16 +11,16 @@ import os
 
 ### Load data
 
-DATA_DIR = {data_dir}
-
 TF = sys.argv[1]
 tis = sys.argv[2]
 
-counts_DF = pd.read_csv(DATA_DIR + "GTEx_Sampling/counts/" + tis + ".counts.down.csv", index_col=0)
-samples = counts_DF.columns[2:]
+counts_DF = pd.read_csv("example_data/" + tis + ".counts.downsampled.csv", index_col=0)
+samples = counts_DF.columns[1:]
+
+pairs_DF = pd.read_csv("example_data/gene_pairs_neighboring.csv", index_col=0)
 
 
-def makeDataSet(pairs_DF, LFC_DF, TF):
+def makeDataSet(LFC_DF, TF):
 
     lfc = LFC_DF[TF].loc[np.invert(np.isnan(LFC_DF[TF]))]
     pairs_fil = pairs_DF[pairs_DF['g1'].isin(lfc.index) & pairs_DF['g2'].isin(lfc.index)]
@@ -48,16 +48,10 @@ def makeDataSet(pairs_DF, LFC_DF, TF):
     return [makeSampleDF(s=s) for s in samples]
 
 
-LFC_DF = pd.read_csv(DATA_DIR + "ENCODE_Signature/shrinkLFC_CRISPRi.csv", index_col=0)
+LFC_DF = pd.read_csv("example_data/ENCODE_CRISPRi_shrinkLFC.csv", index_col=0)
 
-pairs_DF = pd.read_csv(DATA_DIR + "Pairs/pairs_10k-200k_overlap.csv", index_col=0)
 
-df_ls = makeDataSet(pairs_DF=pairs_DF, LFC_DF=LFC_DF, TF=TF)
-
-#if permuting on the predictor:
-#from sklearn.utils import resample
-#for i in range(len(df_ls)):
-#    df_ls[i]["diff_sig"] = resample(df_ls[i]["diff_sig"].values, replace=False)
+df_ls = makeDataSet(LFC_DF=LFC_DF, TF=TF)
 
 df_all = pd.concat(df_ls, keys=[("s" + str(s)) for s in range(len(df_ls))])
 
@@ -106,15 +100,15 @@ init_v = make_init(num_samples=num_samples, num_pairs=num_pairs)
 pair_fit = tfp.optimizer.bfgs_minimize(loss_and_gradient, initial_position=init_v, max_iterations=10000)
 print(f"converged: {pair_fit.converged}\niterations: {pair_fit.num_iterations}")
 
-#pair_a = pair_fit.position[0:num_pairs]
-#pair_rho = 1 / (1 + np.exp(-pair_fit.position[num_pairs:(2*num_pairs)]))
-pair_b = pair_fit.position[(2*num_pairs):(2*num_pairs + num_samples)]
+optim_a = pair_fit.position[0:num_pairs]
+optim_rho = 1 / (1 + np.exp(-pair_fit.position[num_pairs:(2*num_pairs)]))
+optim_b = pair_fit.position[(2*num_pairs):(2*num_pairs + num_samples)]
 
 
-### Save coefficients
+### Save coefficients (inferred activities)
 
-with tf.io.gfile.GFile('results{}_{}.csv'.format(TF, tis), 'w') as f:
-     np.savetxt(f, pair_b, delimiter=',')
+with tf.io.gfile.GFile('example_data/coefs_{}_{}.csv'.format(TF, tis), 'w') as f:
+     np.savetxt(f, optim_b, delimiter=',')
 
 
 print("Run: %s hours ---" % round((time.time() - start_time)/3600, 2))

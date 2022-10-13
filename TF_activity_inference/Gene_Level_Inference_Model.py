@@ -11,15 +11,13 @@ import os
 
 ### Load data
 
-DATA_DIR = {data_dir}
-
 TF = sys.argv[1]
 tis = sys.argv[2]
 
-counts_DF = pd.read_csv(DATA_DIR + "GTEx_Sampling/counts/" + tis + ".counts.down.csv", index_col=0)
-samples = counts_DF.columns[2:]
+counts_DF = pd.read_csv("example_data/" + tis + ".counts.downsampled.csv", index_col=0)
+samples = counts_DF.columns[1:]
 
-LFC_DF = pd.read_csv(DATA_DIR + "ENCODE_Signature/shrinkLFC_CRISPRi.csv", index_col=0)
+LFC_DF = pd.read_csv("example_data/ENCODE_CRISPRi_shrinkLFC.csv", index_col=0)
 
 
 lfc = LFC_DF[TF].loc[np.invert(np.isnan(LFC_DF[TF]))]
@@ -92,11 +90,8 @@ optim_r = fit_rb.position[0:num_genes]
 optim_b = fit_rb.position[(num_genes):(num_genes + num_samples)]
 
 
-with tf.io.gfile.GFile('results_global/{}.{}.b.csv'.format(TF, tis), 'w') as f:
+with tf.io.gfile.GFile('example_data/GeneModel_coefs.{}.{}.b.csv'.format(TF, tis), 'w') as f:
      np.savetxt(f, optim_b, delimiter=',')
-#with tf.io.gfile.GFile('results_global/{}.{}.r.csv'.format(TF, tis), 'w') as f:
-#     np.savetxt(f, optim_r, delimiter=',')
-
 
 print("Run: %s hours ---" % round((time.time() - start_time)/3600, 2))
 
