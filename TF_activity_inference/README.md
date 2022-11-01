@@ -5,7 +5,9 @@
 ## Example Datasets:
 We use GTEx skeletal muscle RNA-seq data and NR4A1 perturbation data  as examples:   
 GTEx v8 data: [open access datasets](https://gtexportal.org/home/datasets)   
-ENCODE data: [CRIPSRi experiments](https://www.encodeproject.org/experiments/ENCSR357LVC/)    
+ENCODE data: [CRIPSRi experiments](https://www.encodeproject.org/experiments/ENCSR357LVC/)     
+           
+Results of TF activity are available here: [data](http://bussemakerlab.org/papers/Li-aQTL/TF_activity/)   
 
 ## Steps:
 1) Preparation of RNA-Seq data from the GTEx project: `Process_GTEx_Count_Matrix.R`	
