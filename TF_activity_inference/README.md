@@ -1,6 +1,6 @@
 # Guide: Inferring individual-specific transcription factor activity   
 
-![Framework](https://github.com/xl27/GTEx_aQTLs/blob/main/images/FigS1A.png)  
+![Framework](https://github.com/xl27/GTEx_aQTLs/blob/main/images/Fig1D.png)  
 
 ## Example Datasets:
 We use GTEx skeletal muscle RNA-seq data and NR4A1 perturbation data  as examples:   
